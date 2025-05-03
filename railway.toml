@@ -2,6 +2,6 @@
 nixpacks_enabled = false
 
 [deploy]
-startCommand = "nginx -g 'daemon off;'"
+startCommand = "serve -s . -l 3000"
 restartPolicy = "always"
 healthcheckEnabled = false

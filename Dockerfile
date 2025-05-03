@@ -1,5 +1,7 @@
 # Build stage
 FROM node:18.19 as build
+
+# Set working directory
 WORKDIR /app
 
 # Copy package.json and install dependencies
@@ -9,33 +11,23 @@ RUN npm install
 # Copy the rest of the application
 COPY . .
 
-# Debug: ver estructura antes de compilar
-RUN ls -la 
-
 # Build the application
 RUN npm run build
 
-# Debug: ver estructura de salida después de compilar
-RUN ls -la dist && ls -la dist/proyecto-iv
+# Use smaller image for production
+FROM node:18.19-slim
 
-# Production stage
-FROM nginx:stable-alpine
-WORKDIR /usr/share/nginx/html
+# Install serve - a simple static file server
+RUN npm install -g serve
 
-# Remove default nginx static assets
-RUN rm -rf ./*
+# Set working directory
+WORKDIR /app
 
-# Copy static assets from builder stage - usamos copiado recursivo
-COPY --from=build /app/dist/proyecto-iv/ ./
+# Copy built application from build stage
+COPY --from=build /app/dist/proyecto-iv .
 
-# Debug: verificar estructura después de copiar
-RUN ls -la
+# Expose port 3000 (default for serve)
+EXPOSE 3000
 
-# Copy nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Expose port
-EXPOSE 80
-
-# Start Nginx server
-CMD ["nginx", "-g", "daemon off;"]
+# Start serve
+CMD ["serve", "-s", ".", "-l", "3000"]
