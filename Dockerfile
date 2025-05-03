@@ -14,7 +14,10 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Use smaller image for production
+# Debug: Check the output structure
+RUN ls -la dist && ls -la dist/proyecto-iv && echo "Checking if browser dir exists" && ls -la dist/proyecto-iv/browser || echo "Browser dir not found"
+
+# Production stage
 FROM node:18.19-slim
 
 # Install serve - a simple static file server
@@ -23,11 +26,11 @@ RUN npm install -g serve
 # Set working directory
 WORKDIR /app
 
-# Copy built application from build stage
-COPY --from=build /app/dist/proyecto-iv .
+# Copy built application from build stage - adjusted for Angular 19's structure
+COPY --from=build /app/dist/proyecto-iv/browser/ .
 
-# Expose port 3000 (default for serve)
+# Expose port 3000
 EXPOSE 3000
 
-# Start serve
+# Start serve with the correct base path
 CMD ["serve", "-s", ".", "-l", "3000"]
