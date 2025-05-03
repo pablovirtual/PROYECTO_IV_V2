@@ -1,18 +1,32 @@
 # Etapa de compilación
 FROM node:20-alpine as build
 WORKDIR /app
+
+# Copiamos primero solo los archivos de configuración del proyecto
 COPY package*.json ./
-RUN npm install
+COPY angular.json tsconfig*.json ./
+
+# Instalamos dependencias con una bandera de mayor compatibilidad
+RUN npm ci --quiet
+
+# Copiamos el resto del código fuente
 COPY . .
+
+# Generamos la versión compilada para producción
 RUN npm run build
 
-# Etapa de producción
-FROM nginx:alpine
-# Copiar la configuración de nginx personalizada si es necesario
+# Etapa de producción con Nginx
+FROM nginx:stable-alpine
+WORKDIR /usr/share/nginx/html
+
+# Eliminamos los archivos predeterminados de Nginx
+RUN rm -rf ./*
+
+# Copiamos la configuración personalizada de Nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-# Copiar los archivos compilados desde la etapa de construcción
-COPY --from=build /app/dist/proyecto-iv /usr/share/nginx/html
-# Exponer el puerto 80
-EXPOSE 80
-# Iniciar Nginx
+
+# Copiamos los archivos compilados
+COPY --from=build /app/dist/proyecto-iv .
+
+# Comando para el inicio de Nginx
 CMD ["nginx", "-g", "daemon off;"]

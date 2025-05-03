@@ -1,13 +1,9 @@
 [build]
-builder = "nixpacks"
-buildCommand = "npm run build"
+nixpacks_enabled = false
 
 [deploy]
 startCommand = "nginx -g 'daemon off;'"
 healthcheckPath = "/"
-healthcheckTimeout = 300
+healthcheckTimeout = 100
 restartPolicyType = "on-failure"
-restartPolicyMaxRetries = 10
-
-[nixpacks]
-start = "nginx -g 'daemon off;'"
+restartPolicyMaxRetries = 5
