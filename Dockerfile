@@ -1,5 +1,5 @@
 # Build stage
-FROM node:18 as build
+FROM node:16 as build
 WORKDIR /app
 
 # Copy package.json and install dependencies
@@ -9,26 +9,24 @@ RUN npm install
 # Copy the rest of the application
 COPY . .
 
-# Check directory structure before build
-RUN ls -la
-
 # Build the application
 RUN npm run build
 
-# Check structure after build
-RUN ls -la dist && echo "Checking output directory structure"
+# Production stage
+FROM nginx:stable-alpine
+WORKDIR /usr/share/nginx/html
 
-# Nginx stage
-FROM nginx:1.21
+# Remove default nginx static assets
+RUN rm -rf ./*
 
-# Create directory for html files
-RUN mkdir -p /usr/share/nginx/html
+# Copy static assets from builder stage
+COPY --from=build /app/dist/proyecto-iv .
 
-# Copy from build stage, being specific about the path
-COPY --from=build /app/dist/proyecto-iv/ /usr/share/nginx/html/
-
-# Copy nginx config
+# Copy nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose port
+EXPOSE 80
 
 # Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
