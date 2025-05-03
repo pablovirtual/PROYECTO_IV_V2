@@ -1,0 +1,24 @@
+<!-- En components/api-test/api-test.component.html -->
+<div class="api-test-container">
+  <h2>Prueba de Conexión API</h2>
+  
+  <button (click)="testApiConnection()" [disabled]="isLoading">
+    {{ isLoading ? 'Conectando...' : 'Probar Conexión' }}
+  </button>
+  
+  <div class="status-container">
+    <p>Estado: <span [ngClass]="{'success': connectionStatus === 'Conexión exitosa', 
+                                'error': connectionStatus === 'Error en la conexión'}">
+      {{ connectionStatus }}
+    </span></p>
+    
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+    
+    <div *ngIf="responseData" class="response-data">
+      <h3>Respuesta recibida:</h3>
+      <pre>{{ responseData | json }}</pre>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,119 @@
+<div class="gallery-container">
+  <!-- Vista principal de la galería -->
+  <div class="main-gallery">
+    <div class="gallery-navigation">
+      <button class="nav-btn prev-btn" (click)="previous()" [disabled]="images.length <= 1">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      
+      <div class="gallery-main-image">
+        <img 
+          *ngIf="images.length > 0" 
+          [src]="images[currentIndex].src" 
+          [alt]="images[currentIndex].alt"
+          class="active-image"
+          (click)="toggleFullscreen()"
+        >
+        <div *ngIf="images.length === 0" class="no-images">
+          <i class="bi bi-image"></i>
+          <p>No hay imágenes disponibles</p>
+        </div>
+      </div>
+      
+      <button class="nav-btn next-btn" (click)="next()" [disabled]="images.length <= 1">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+    
+    <!-- Controles e información de la imagen -->
+    <div class="gallery-controls" *ngIf="images.length > 0">
+      <div class="image-info">
+        <h4 *ngIf="images[currentIndex].title">{{ images[currentIndex].title }}</h4>
+        <p *ngIf="images[currentIndex].description">{{ images[currentIndex].description }}</p>
+        
+        <!-- Componente de valoración de imágenes -->
+        <app-image-rating 
+          *ngIf="enableRating && images[currentIndex].id"
+          [imageId]="images[currentIndex].id!"
+          [currentRating]="getImageRating(images[currentIndex].id!).averageRating"
+          [totalVotes]="getImageRating(images[currentIndex].id!).totalVotes"
+          (rateChange)="onRateImage($event)"
+        ></app-image-rating>
+      </div>
+      
+      <div class="gallery-actions">
+        <button class="action-btn" (click)="toggleFullscreen()">
+          <i class="bi" [ngClass]="showFullscreen ? 'bi-fullscreen-exit' : 'bi-fullscreen'"></i>
+        </button>
+        <button class="action-btn" (click)="autoPlay ? stopAutoPlay() : startAutoPlay()">
+          <i class="bi" [ngClass]="autoPlay ? 'bi-pause-fill' : 'bi-play-fill'"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Miniaturas -->
+    <div class="gallery-thumbnails" *ngIf="showThumbnails && images.length > 1">
+      <div 
+        *ngFor="let image of images; let i = index" 
+        class="thumbnail-container"
+        [class.active]="i === currentIndex"
+        (click)="selectImage(i)"
+      >
+        <img [src]="image.src" [alt]="image.alt" class="thumbnail">
+      </div>
+    </div>
+  </div>
+  
+  <!-- Vista de pantalla completa -->
+  <div class="fullscreen-overlay" *ngIf="showFullscreen" (click)="toggleFullscreen()">
+    <div class="fullscreen-container" (click)="$event.stopPropagation()">
+      <button class="close-fullscreen" (click)="toggleFullscreen()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+      
+      <div class="fullscreen-navigation">
+        <button class="nav-btn prev-btn" (click)="previous()" [disabled]="images.length <= 1">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+        
+        <div class="fullscreen-image-container">
+          <img 
+            [src]="images[currentIndex].src" 
+            [alt]="images[currentIndex].alt"
+            class="fullscreen-image"
+          >
+          
+          <div class="fullscreen-info" *ngIf="images[currentIndex].title || images[currentIndex].description">
+            <h3 *ngIf="images[currentIndex].title">{{ images[currentIndex].title }}</h3>
+            <p *ngIf="images[currentIndex].description">{{ images[currentIndex].description }}</p>
+            
+            <!-- Componente de valoración de imágenes en modo pantalla completa -->
+            <app-image-rating 
+              *ngIf="enableRating && images[currentIndex].id"
+              [imageId]="images[currentIndex].id!"
+              [currentRating]="getImageRating(images[currentIndex].id!).averageRating"
+              [totalVotes]="getImageRating(images[currentIndex].id!).totalVotes"
+              (rateChange)="onRateImage($event)"
+            ></app-image-rating>
+          </div>
+        </div>
+        
+        <button class="nav-btn next-btn" (click)="next()" [disabled]="images.length <= 1">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
+      
+      <!-- Miniaturas en pantalla completa -->
+      <div class="fullscreen-thumbnails" *ngIf="images.length > 1">
+        <div 
+          *ngFor="let image of images; let i = index" 
+          class="thumbnail-container"
+          [class.active]="i === currentIndex"
+          (click)="selectImage(i)"
+        >
+          <img [src]="image.src" [alt]="image.alt" class="thumbnail">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

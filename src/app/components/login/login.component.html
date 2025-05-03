@@ -1,0 +1,72 @@
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center py-5">
+  <div class="row w-100 justify-content-center">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4">
+      <div class="card">
+        <div class="card-header bg-primary text-white text-center">
+          <h4 class="mb-0">Iniciar Sesión</h4>
+        </div>
+        <div class="card-body">
+          <!-- Mensaje de error -->
+          <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            {{ errorMessage }}
+          </div>
+
+          <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo electrónico</label>
+              <input 
+                type="email" 
+                class="form-control" 
+                id="email" 
+                name="email"
+                [(ngModel)]="credentials.email"
+                required
+                placeholder="nombre@ejemplo.com">
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input 
+                type="password" 
+                class="form-control" 
+                id="password" 
+                name="password"
+                [(ngModel)]="credentials.password"
+                required
+                placeholder="••••••••">
+              <div class="form-text">
+                <a href="#" class="text-decoration-none small">¿Olvidaste tu contraseña?</a>
+              </div>
+            </div>
+
+            <!-- Remember me -->
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="rememberMe">
+              <label class="form-check-label" for="rememberMe">Mantener sesión iniciada</label>
+            </div>
+
+            <!-- Login button -->
+            <div class="d-grid">
+              <button 
+                type="submit" 
+                class="btn btn-primary" 
+                [disabled]="isLoading || !loginForm.form.valid">
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                {{ isLoading ? 'Procesando...' : 'Iniciar Sesión' }}
+              </button>
+            </div>
+
+            <!-- Register link -->
+            <div class="text-center mt-3">
+              <span class="me-1">¿No tienes una cuenta?</span>
+              <a href="#" class="text-primary">Regístrate</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

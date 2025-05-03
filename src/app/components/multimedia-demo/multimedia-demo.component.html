@@ -1,0 +1,92 @@
+<div class="container py-5">
+  <div class="row mb-5">
+    <div class="col-12">
+      <h1 class="text-center mb-4">Recursos Multimedia</h1>
+      <p class="lead text-center">Explora nuestros videos y galería de imágenes sobre trading</p>
+    </div>
+  </div>
+  
+  <!-- Sección de Videos Embebidos -->
+  <div class="row mb-5">
+    <div class="col-12">
+      <h2 class="section-title">
+        <i class="bi bi-play-circle me-2"></i>Videos Educativos
+      </h2>
+      <hr>
+    </div>
+    
+    <div class="col-lg-6 mb-4" *ngFor="let video of videoExamples">
+      <app-video-player 
+        [videoId]="video.videoId" 
+        [title]="video.title"
+        [width]="560"
+        [height]="315"
+      ></app-video-player>
+    </div>
+  </div>
+  
+  <!-- Sección de Galería de Imágenes -->
+  <div class="row mb-5">
+    <div class="col-12">
+      <h2 class="section-title">
+        <i class="bi bi-images me-2"></i>Galería de Imágenes
+      </h2>
+      <hr>
+    </div>
+    
+    <div class="col-12">
+      <app-gallery 
+        [images]="galleryImages"
+        [showThumbnails]="true"
+        [autoPlay]="false"
+      ></app-gallery>
+    </div>
+  </div>
+  
+  <!-- Sección de Galería con Valoración -->
+  <div class="row mb-5">
+    <div class="col-12">
+      <h2 class="section-title">
+        <i class="bi bi-star me-2"></i>Galería con Valoración
+      </h2>
+      <p class="text-muted">Navega por las imágenes y califícalas con estrellas para darnos tu opinión.</p>
+      <hr>
+    </div>
+    
+    <div class="col-12">
+      <app-gallery 
+        [images]="galleryImagesWithRating"
+        [showThumbnails]="true"
+        [autoPlay]="false"
+        [enableRating]="true"
+      ></app-gallery>
+    </div>
+  </div>
+  
+  <!-- Sección de Ejemplo de Valoración Individual -->
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section-title">
+        <i class="bi bi-hand-thumbs-up me-2"></i>Ejemplo de Valoración Individual
+      </h2>
+      <p class="text-muted">Puedes integrar el componente de valoración en cualquier lugar de tu aplicación.</p>
+      <hr>
+    </div>
+    
+    <div class="col-md-4 mb-4" *ngFor="let image of galleryImagesWithRating">
+      <div class="card h-100">
+        <img [src]="image.src" [alt]="image.alt" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">{{image.title}}</h5>
+          <p class="card-text">{{image.description}}</p>
+          <app-image-rating 
+            [imageId]="image.id!"
+            [currentRating]="0"
+            [totalVotes]="0"
+            (rateChange)="onImageRated($event)"
+          ></app-image-rating>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

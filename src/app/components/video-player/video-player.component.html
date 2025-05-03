@@ -1,0 +1,19 @@
+<div class="video-container">
+  <h3 *ngIf="title">{{ title }}</h3>
+  <div class="embed-responsive" [ngStyle]="{'--aspect-ratio': height / width}">
+    <iframe 
+      *ngIf="safeUrl"
+      class="embed-responsive-item" 
+      [src]="safeUrl"
+      [width]="width"
+      [height]="height"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
+    <div *ngIf="!videoId" class="video-placeholder">
+      <i class="bi bi-play-circle-fill"></i>
+      <p>Video no disponible</p>
+    </div>
+  </div>
+</div>

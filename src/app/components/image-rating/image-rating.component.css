@@ -1,0 +1,35 @@
+.rating-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.stars {
+  display: flex;
+  gap: 5px;
+}
+
+.star {
+  cursor: pointer;
+  transition: transform 0.2s;
+  color: #ffc107; /* Bootstrap yellow */
+  font-size: 1.2rem;
+}
+
+.star:hover {
+  transform: scale(1.2);
+}
+
+.star.disabled {
+  cursor: default;
+}
+
+.star.disabled:hover {
+  transform: none;
+}
+
+.vote-count {
+  margin-top: 4px;
+  color: #6c757d; /* Bootstrap secondary text */
+}

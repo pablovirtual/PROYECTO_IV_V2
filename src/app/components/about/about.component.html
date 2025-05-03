@@ -1,0 +1,158 @@
+<!-- Encabezado con imagen de fondo -->
+<div class="about-header py-5 text-white text-center">
+  <div class="container py-5">
+    <h1 class="display-4 fw-bold">Acerca de Trading Academy</h1>
+    <p class="lead">{{ company.slogan }}</p>
+  </div>
+</div>
+
+<div class="container py-5">
+  <!-- Sección de Misión y Visión -->
+  <div class="row mb-5">
+    <div class="col-md-6 mb-4 mb-md-0">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center mb-3">
+            <div class="icon-circle bg-primary bg-opacity-10 text-primary me-3">
+              <i class="bi bi-flag-fill"></i>
+            </div>
+            <h2 class="h3 mb-0">Nuestra Misión</h2>
+          </div>
+          <p>Proporcionar educación financiera de calidad que empodere a nuestros estudiantes para navegar con confianza los mercados financieros, ofreciendo herramientas prácticas, conocimientos teóricos y apoyo continuo que les permita desarrollar estrategias de trading efectivas y sostenibles.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center mb-3">
+            <div class="icon-circle bg-primary bg-opacity-10 text-primary me-3">
+              <i class="bi bi-eye-fill"></i>
+            </div>
+            <h2 class="h3 mb-0">Nuestra Visión</h2>
+          </div>
+          <p>Ser la plataforma educativa de referencia en el mundo del trading, reconocida por la excelencia de nuestro contenido, el éxito de nuestros estudiantes y nuestro compromiso con la ética y la responsabilidad en los mercados financieros. Aspiramos a crear una comunidad global de traders formados, responsables y exitosos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección de Políticas -->
+  <div class="row mb-5">
+    <div class="col-12">
+      <div class="text-center mb-5">
+        <h2 class="h2 fw-bold">Nuestras Políticas</h2>
+        <p class="text-muted">Principios que guían cada aspecto de nuestra plataforma educativa</p>
+      </div>
+    </div>
+    
+    <div class="col-12">
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+          <div class="accordion" id="policiesAccordion">
+            <!-- Generamos dinámicamente las políticas desde el array -->
+            <div class="accordion-item border-0 mb-3" *ngFor="let policy of policies; let i = index">
+              <h3 class="accordion-header" [id]="'heading' + i">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i">
+                  <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                  {{ policy.title }}
+                </button>
+              </h3>
+              <div [id]="'collapse' + i" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading' + i" data-bs-parent="#policiesAccordion">
+                <div class="accordion-body pt-0">
+                  {{ policy.description }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección de Ubicación -->
+  <div class="row mb-5">
+    <div class="col-12">
+      <div class="text-center mb-5">
+        <h2 class="h2 fw-bold">Nuestra Ubicación</h2>
+        <p class="text-muted">Visítanos en nuestras oficinas centrales</p>
+      </div>
+    </div>
+    
+    <div class="col-md-6 mb-4 mb-md-0">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body p-4">
+          <h3 class="h4 mb-3">Información de Contacto</h3>
+          <ul class="list-unstyled">
+            <li class="mb-3">
+              <div class="d-flex">
+                <i class="bi bi-geo-alt-fill text-primary me-3 fs-5"></i>
+                <div>
+                  <strong>Dirección:</strong><br>
+                  Av. Insurgentes Sur 1602, Col. Crédito Constructor<br>
+                  Benito Juárez, CDMX, México, 03940
+                </div>
+              </div>
+            </li>
+            <li class="mb-3">
+              <div class="d-flex">
+                <i class="bi bi-telephone-fill text-primary me-3 fs-5"></i>
+                <div>
+                  <strong>Teléfono:</strong><br>
+                  +52 (55) 1234-5678
+                </div>
+              </div>
+            </li>
+            <li class="mb-3">
+              <div class="d-flex">
+                <i class="bi bi-envelope-fill text-primary me-3 fs-5"></i>
+                <div>
+                  <strong>Email:</strong><br>
+                  contacto&#64;tradingacademy.com
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="d-flex">
+                <i class="bi bi-clock-fill text-primary me-3 fs-5"></i>
+                <div>
+                  <strong>Horario:</strong><br>
+                  Lunes a Viernes: 9:00 AM - 6:00 PM<br>
+                  Sábados: 10:00 AM - 2:00 PM
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+          <!-- Mapa simulado (imagen o iframe) -->
+          <div class="map-container">
+            <!-- Usando OpenStreetMap a través de un iframe -->
+            <iframe 
+              width="100%" 
+              height="400" 
+              frameborder="0" 
+              scrolling="no" 
+              marginheight="0" 
+              marginwidth="0" 
+              src="https://www.openstreetmap.org/export/embed.html?bbox=-99.17465209960939%2C19.32164883308864%2C-99.12248611450197%2C19.354270408272456&amp;layer=mapnik&amp;marker=19.33796124170516%2C-99.14856910705566" 
+              style="border: 1px solid #ddd; border-radius: 4px;">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer con copyright -->
+<footer class="bg-dark text-white text-center py-4">
+  <div class="container">
+    <p class="mb-0">&copy; {{ company.year }} {{ company.name }}. Todos los derechos reservados.</p>
+  </div>
+</footer>

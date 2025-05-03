@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Ajustes globales para corregir problemas de visualización */
+:root {
+  /* Asegura que las variables CSS de Bootstrap se apliquen correctamente */
+  --bs-body-font-family: var(--bs-font-sans-serif);
+  --bs-body-font-size: 1rem;
+  --bs-body-font-weight: 400;
+  --bs-body-line-height: 1.5;
+}
+
+body {
+  /* Reinicia propiedades potencialmente problemáticas */
+  font-family: var(--bs-body-font-family) !important;
+  font-size: var(--bs-body-font-size) !important;
+  font-weight: var(--bs-body-font-weight) !important;
+  line-height: var(--bs-body-line-height) !important;
+  letter-spacing: normal !important;
+  text-align: left !important;
+  color: var(--bs-body-color) !important;
+  box-sizing: border-box !important;
+}
+
+/* Corrige ancho de columnas */
+.col-md-6, .col-lg-5, .col-xl-4 {
+  width: auto !important;
+  max-width: 100% !important;
+  flex: 0 0 auto !important;
+}
+
+/* Corrige problemas de card y formulario */
+.card {
+  width: 100% !important;
+  height: auto !important;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}

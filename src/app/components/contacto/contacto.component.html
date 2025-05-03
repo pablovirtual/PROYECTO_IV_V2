@@ -1,0 +1,110 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">Contacto</h3>
+        </div>
+        <div class="card-body">
+          <!-- Mensaje de éxito -->
+          <div *ngIf="enviado" class="alert alert-success mb-4">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto contigo pronto.
+          </div>
+
+          <!-- Mensaje de error -->
+          <div *ngIf="error" class="alert alert-danger mb-4">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <strong>Error:</strong> No se pudo enviar tu mensaje. Por favor, intenta nuevamente.
+            <div *ngIf="error.message" class="mt-2">
+              <small>{{ error.message }}</small>
+            </div>
+          </div>
+
+          <!-- Formulario de contacto -->
+          <form (ngSubmit)="enviarFormulario()" #contactoForm="ngForm" *ngIf="!enviado">
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre completo <span class="text-danger">*</span></label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="nombre" 
+                name="nombre"
+                [(ngModel)]="contacto.nombre"
+                required
+                #nombre="ngModel">
+              <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="text-danger mt-1">
+                <small *ngIf="nombre.errors?.['required']">El nombre es obligatorio.</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo electrónico <span class="text-danger">*</span></label>
+              <input 
+                type="email" 
+                class="form-control" 
+                id="email" 
+                name="email"
+                [(ngModel)]="contacto.email"
+                required
+                email
+                #email="ngModel">
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger mt-1">
+                <small *ngIf="email.errors?.['required']">El correo electrónico es obligatorio.</small>
+                <small *ngIf="email.errors?.['email']">Por favor, introduce un correo electrónico válido.</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="asunto" class="form-label">Asunto <span class="text-danger">*</span></label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="asunto" 
+                name="asunto"
+                [(ngModel)]="contacto.asunto"
+                required
+                #asunto="ngModel">
+              <div *ngIf="asunto.invalid && (asunto.dirty || asunto.touched)" class="text-danger mt-1">
+                <small *ngIf="asunto.errors?.['required']">El asunto es obligatorio.</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="mensaje" class="form-label">Mensaje <span class="text-danger">*</span></label>
+              <textarea 
+                class="form-control" 
+                id="mensaje" 
+                name="mensaje"
+                [(ngModel)]="contacto.mensaje"
+                rows="5" 
+                required
+                #mensaje="ngModel"></textarea>
+              <div *ngIf="mensaje.invalid && (mensaje.dirty || mensaje.touched)" class="text-danger mt-1">
+                <small *ngIf="mensaje.errors?.['required']">El mensaje es obligatorio.</small>
+              </div>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button 
+                type="submit" 
+                class="btn btn-primary"
+                [disabled]="contactoForm.invalid || enviando">
+                <span *ngIf="!enviando">Enviar mensaje</span>
+                <span *ngIf="enviando" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span *ngIf="enviando" class="ms-2">Enviando...</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Enlace para nuevo mensaje después de enviado -->
+          <div *ngIf="enviado" class="text-center mt-3">
+            <button class="btn btn-outline-primary" (click)="enviado = false">
+              Enviar otro mensaje
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

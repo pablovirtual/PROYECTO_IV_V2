@@ -1,0 +1,106 @@
+/* Estilos para el componente FAQ */
+
+/* Header */
+.faq-header {
+  background: linear-gradient(135deg, #0062E6 0%, #33AEFF 100%);
+  position: relative;
+}
+
+.faq-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(to bottom right, transparent 49%, white 50%);
+}
+
+/* Acordeón */
+.faq-accordion .card {
+  border: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.faq-accordion .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+
+.faq-accordion .card-header {
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.faq-accordion .card-header:hover {
+  background-color: #f8f9fa;
+}
+
+/* Badges de categoría */
+.badge {
+  font-weight: 500;
+  padding: 0.5em 0.8em;
+  border-radius: 30px;
+}
+
+/* Cuadro de búsqueda */
+.search-container .input-group {
+  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+  border-radius: 30px;
+}
+
+.search-container .input-group input, 
+.search-container .input-group-text {
+  border-radius: 30px;
+}
+
+.search-container input:focus {
+  box-shadow: none;
+  border-color: #ced4da;
+}
+
+/* Botones de categoría */
+.categories-container .btn {
+  border-radius: 20px;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s;
+}
+
+/* Cursor */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Sección adicional */
+.additional-help {
+  border-radius: 10px;
+  padding: 2rem;
+  background-color: #f8f9fa;
+}
+
+/* Animaciones */
+.card, .badge, .btn {
+  transition: all 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .faq-header {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+  }
+  
+  .faq-header h1 {
+    font-size: 2rem;
+  }
+  
+  .search-container .input-group {
+    max-width: 90% !important;
+  }
+}

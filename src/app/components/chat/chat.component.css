@@ -1,0 +1,71 @@
+/* Estilos para el componente de chat */
+
+/* Contenedor de mensajes */
+.chat-messages {
+  height: calc(100% - 20px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+/* Estilos para burbujas de mensajes */
+.message-container {
+  display: flex;
+  margin-bottom: 15px;
+  max-width: 80%;
+}
+
+.message-container.outgoing {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+
+.message-container.incoming {
+  margin-right: auto;
+}
+
+.message {
+  border-radius: 18px;
+  padding: 10px 15px;
+  position: relative;
+  word-wrap: break-word;
+}
+
+.message-container.outgoing .message {
+  border-top-right-radius: 4px;
+}
+
+.message-container.incoming .message {
+  border-top-left-radius: 4px;
+}
+
+/* Metadatos del mensaje (hora, leído, etc) */
+.message-meta {
+  font-size: 0.75rem;
+  margin-top: 2px;
+}
+
+/* Estilo de las conversaciones en el panel lateral */
+.list-group-item.active {
+  background-color: rgba(var(--bs-primary-rgb), 0.1) !important;
+  color: var(--bs-body-color) !important;
+  border-color: rgba(var(--bs-primary-rgb), 0.2) !important;
+}
+
+/* Animación para mensajes nuevos */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message-container:last-child {
+  animation: fadeIn 0.3s ease-out;
+}

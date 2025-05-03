@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "http://localhost/Proyecto IV/proyecto-IV/public",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

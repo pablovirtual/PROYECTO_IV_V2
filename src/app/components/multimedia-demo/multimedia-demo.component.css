@@ -1,0 +1,50 @@
+/* Estilos para la página de demostración multimedia */
+
+.section-title {
+  color: #333;
+  font-weight: 500;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.section-title i {
+  color: #0d6efd;
+}
+
+/* Estilo para bloques de código de ejemplo */
+.code-sample {
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  overflow: auto;
+  margin-bottom: 1rem;
+}
+
+.code-sample pre {
+  margin-bottom: 0;
+  padding: 1rem;
+}
+
+.code-sample code {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.875rem;
+  color: #212529;
+}
+
+/* Efectos de transición */
+.card {
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+}
+
+/* Estilo para borde de secciones */
+hr {
+  height: 2px;
+  background-image: linear-gradient(to right, #0d6efd, transparent);
+  opacity: 0.3;
+  margin-bottom: 2rem;
+}

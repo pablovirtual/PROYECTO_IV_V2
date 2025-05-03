@@ -1,0 +1,51 @@
+<div 
+  class="slider-container" 
+  [style.height]="height"
+  (mouseenter)="pauseAutoplay()" 
+  (mouseleave)="resumeAutoplay()">
+  
+  <!-- Slides -->
+  <div class="slides-wrapper">
+    <div 
+      *ngFor="let slide of slides; let i = index" 
+      class="slide"
+      [class.active]="i === activeSlide"
+      [style.backgroundImage]="'url(' + slide.imageUrl + ')'">
+      
+      <!-- Overlay para mejorar la legibilidad del texto -->
+      <div class="slide-overlay"></div>
+      
+      <!-- Contenido del slide -->
+      <div class="slide-content">
+        <h2 class="slide-title">{{ slide.title }}</h2>
+        <p *ngIf="slide.subtitle" class="slide-subtitle">{{ slide.subtitle }}</p>
+        <a 
+          *ngIf="slide.buttonText && slide.buttonLink" 
+          [routerLink]="slide.buttonLink" 
+          class="btn btn-primary slide-button">
+          {{ slide.buttonText }}
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Controles (flechas) -->
+  <div *ngIf="showControls && slides.length > 1" class="slider-controls">
+    <button class="control-button prev" (click)="prevSlide()">
+      <i class="bi bi-chevron-left"></i>
+    </button>
+    <button class="control-button next" (click)="nextSlide()">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </div>
+  
+  <!-- Indicadores (puntos) -->
+  <div *ngIf="showIndicators && slides.length > 1" class="slider-indicators">
+    <button 
+      *ngFor="let slide of slides; let i = index" 
+      [class.active]="i === activeSlide"
+      class="indicator-dot" 
+      (click)="goToSlide(i)">
+    </button>
+  </div>
+</div>

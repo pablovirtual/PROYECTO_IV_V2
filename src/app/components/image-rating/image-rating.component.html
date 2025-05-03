@@ -1,0 +1,19 @@
+<div class="rating-container">
+  <div class="stars">
+    <span 
+      *ngFor="let star of stars" 
+      (click)="rate(star)" 
+      (mouseenter)="onStarHover(star)" 
+      (mouseleave)="onStarLeave()"
+      [class.disabled]="readonly"
+      class="star">
+      <i class="bi" 
+         [class.bi-star-fill]="isStarFilled(star)" 
+         [class.bi-star]="!isStarFilled(star)"></i>
+    </span>
+  </div>
+  
+  <div *ngIf="showCount && totalVotes > 0" class="vote-count">
+    <small>{{ currentRating.toFixed(1) }} ({{ totalVotes }} {{ totalVotes === 1 ? 'voto' : 'votos' }})</small>
+  </div>
+</div>

@@ -1,0 +1,131 @@
+<!-- Alerta de bienvenida - solo visible cuando showWelcome es true -->
+<div *ngIf="showWelcome && currentUser" class="alert alert-success alert-dismissible fade show m-0" role="alert">
+  <div class="container">
+    <i class="bi bi-check-circle-fill me-2"></i>
+    <strong>¡Bienvenido, {{currentUser.name || currentUser.email}}!</strong> Has iniciado sesión correctamente.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>
+
+<!-- Slider de imágenes para la parte superior de la página -->
+<app-slider 
+  [slides]="homeSlides" 
+  [height]="'600px'" 
+  [autoplayInterval]="6000"
+></app-slider>
+
+<!-- Características principales de la plataforma -->
+<div class="features-section py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5">¿Por qué elegir nuestra plataforma?</h2>
+    
+    <div class="row g-4">
+      <!-- Característica 1 -->
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-4">
+            <div class="feature-icon bg-primary bg-opacity-10 p-3 rounded-circle mx-auto mb-3">
+              <i class="bi bi-book fs-3 text-primary"></i>
+            </div>
+            <h4>Cursos Estructurados</h4>
+            <p class="text-muted">Aprende desde los fundamentos hasta estrategias avanzadas con nuestro currículo diseñado por profesionales.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Característica 2 -->
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-4">
+            <div class="feature-icon bg-primary bg-opacity-10 p-3 rounded-circle mx-auto mb-3">
+              <i class="bi bi-graph-up fs-3 text-primary"></i>
+            </div>
+            <h4>Simulador de Trading</h4>
+            <p class="text-muted">Practica tus estrategias sin riesgo con nuestro simulador que refleja condiciones reales del mercado.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Característica 3 -->
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-4">
+            <div class="feature-icon bg-primary bg-opacity-10 p-3 rounded-circle mx-auto mb-3">
+              <i class="bi bi-people fs-3 text-primary"></i>
+            </div>
+            <h4>Comunidad Activa</h4>
+            <p class="text-muted">Conecta con otros traders, comparte experiencias y aprende colectivamente en nuestros foros y grupos de estudio.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA Section -->
+<div class="cta-section py-5 bg-primary text-white">
+  <div class="container text-center">
+    <h2 class="mb-3">¿Listo para comenzar tu viaje en trading?</h2>
+    <p class="lead mb-4">Únete a miles de estudiantes que ya están transformando su conocimiento en resultados.</p>
+    <a *ngIf="!isLoggedIn" routerLink="/registro" class="btn btn-light btn-lg px-5">Comenzar Ahora</a>
+    <a *ngIf="isLoggedIn" routerLink="/cursos" class="btn btn-light btn-lg px-5">Ver Cursos</a>
+  </div>
+</div>
+
+<!-- Sección de Redes Sociales -->
+<div class="social-media-section py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-4">Síguenos en redes sociales</h2>
+    <p class="text-center text-muted mb-5">Mantente al día con nuestras últimas noticias, análisis de mercado y consejos de trading</p>
+    
+    <div class="row g-4 justify-content-center">
+      <!-- YouTube -->
+      <div class="col-md-4">
+        <div class="card social-card h-100 border-0 shadow-sm hover-elevation">
+          <div class="card-body text-center p-4">
+            <div class="social-icon youtube-bg p-3 rounded-circle mx-auto mb-3">
+              <i class="bi bi-youtube fs-2 text-white"></i>
+            </div>
+            <h4>YouTube</h4>
+            <p class="text-muted">Tutoriales, análisis y entrevistas con expertos en trading</p>
+            <a href="https://www.youtube.com" target="_blank" class="btn btn-outline-danger mt-2">
+              <i class="bi bi-play-btn me-2"></i>Ver Canal
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Twitter/X -->
+      <div class="col-md-4">
+        <div class="card social-card h-100 border-0 shadow-sm hover-elevation">
+          <div class="card-body text-center p-4">
+            <div class="social-icon twitter-bg p-3 rounded-circle mx-auto mb-3">
+              <i class="bi bi-twitter-x fs-2 text-white"></i>
+            </div>
+            <h4>Twitter</h4>
+            <p class="text-muted">Alertas de mercado en tiempo real y noticias económicas</p>
+            <a href="https://www.twitter.com" target="_blank" class="btn btn-outline-dark mt-2">
+              <i class="bi bi-send me-2"></i>Seguir
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Instagram -->
+      <div class="col-md-4">
+        <div class="card social-card h-100 border-0 shadow-sm hover-elevation">
+          <div class="card-body text-center p-4">
+            <div class="social-icon instagram-bg p-3 rounded-circle mx-auto mb-3">
+              <i class="bi bi-instagram fs-2 text-white"></i>
+            </div>
+            <h4>Instagram</h4>
+            <p class="text-muted">Infografías, casos de éxito y contenido educativo visual</p>
+            <a href="https://www.instagram.com" target="_blank" class="btn btn-outline-primary mt-2">
+              <i class="bi bi-camera me-2"></i>Ver Perfil
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

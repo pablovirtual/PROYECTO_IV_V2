@@ -1,0 +1,92 @@
+/* Estilos para el componente Home */
+
+.hero-section {
+  background-color: #f8f9fa;
+  padding: 2rem 0;
+  margin-top: 0;
+}
+
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-section {
+  background: linear-gradient(135deg, var(--bs-primary) 0%, #2c68b1 100%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .hero-section {
+    text-align: center;
+  }
+}
+
+/* Animation for hero image */
+.img-fluid {
+  transition: transform 0.3s ease;
+}
+
+.img-fluid:hover {
+  transform: translateY(-5px);
+}
+
+/* Estilos para la sección de redes sociales */
+.social-card {
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.hover-elevation:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.social-icon {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.social-card:hover .social-icon {
+  transform: scale(1.1);
+}
+
+/* Colores de fondo para los iconos de redes sociales */
+.youtube-bg {
+  background: linear-gradient(135deg, #FF0000, #CC0000);
+}
+
+.twitter-bg {
+  background: linear-gradient(135deg, #1DA1F2, #0c85d0);
+}
+
+.instagram-bg {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+/* Estilos para las secciones con background */
+.cta-section {
+  background-image: linear-gradient(rgba(13, 110, 253, 0.9), rgba(13, 110, 253, 0.7)), 
+                    url('https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=1200');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+/* Animación de elevación al hover para todos los botones */
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
