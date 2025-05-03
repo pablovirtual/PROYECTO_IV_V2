@@ -281,53 +281,122 @@ La aplicación utiliza los siguientes métodos para gestionar el estado:
 
 ## Despliegue en Railway
 
-La aplicación está configurada para ser desplegada en [Railway](https://railway.app), una plataforma moderna de despliegue en la nube. A continuación se detallan los archivos de configuración y los pasos para el despliegue:
+La aplicación está desplegada y disponible en [proyectoivv2-production.up.railway.app](https://proyectoivv2-production.up.railway.app).
 
-### Archivos de Configuración
+### Configuración del Despliegue
 
-- **Dockerfile**: Configura un proceso de construcción de dos etapas:
-  - Etapa de construcción: Compila la aplicación Angular
-  - Etapa de producción: Sirve la aplicación con Nginx
-- **nginx.conf**: Configuración optimizada de Nginx para aplicaciones Angular
-- **.dockerignore**: Excluye archivos innecesarios de la imagen Docker
+#### Archivos de Configuración
+
+Para desplegar la aplicación en Railway, se crearon y configuraron los siguientes archivos:
+
+- **Dockerfile**: Configuración para construir la aplicación en un entorno Docker
+  ```dockerfile
+  # Build stage
+  FROM node:18.19 as build
+  WORKDIR /app
+  COPY package*.json ./
+  RUN npm install
+  COPY . .
+  RUN npm run build
+  
+  # Production stage
+  FROM node:18.19-slim
+  RUN npm install -g serve
+  WORKDIR /app
+  COPY --from=build /app/dist/proyecto-iv/browser/ .
+  EXPOSE 3000
+  CMD ["serve", "-s", ".", "-l", "3000"]
+  ```
+
 - **railway.toml**: Configuración específica para Railway
+  ```toml
+  [build]
+  nixpacks_enabled = false
 
-### Pasos para el Despliegue
+  [deploy]
+  startCommand = "serve -s . -l 3000"
+  restartPolicy = "always"
+  healthcheckEnabled = false
+  ```
 
-1. **Instalar la CLI de Railway**:
-   ```
+- **environments/environment.prod.ts**: Configuración de entorno para producción
+  ```typescript
+  export const environment = {
+    production: true,
+    apiUrl: 'https://apiproyectoiv-production.up.railway.app/api'
+  };
+  ```
+
+#### Consideraciones Especiales para Angular 19
+
+La estructura de compilación de Angular 19 es diferente a versiones anteriores:
+- Los archivos compilados se encuentran en: `dist/[nombre-proyecto]/browser/`
+- Es importante ajustar el Dockerfile para copiar desde la ruta correcta
+
+#### Solución a Problemas Comunes
+
+Durante el proceso de despliegue se encontraron y resolvieron varios desafíos:
+
+1. **Problema de estructura de directorios**:
+   - Angular 19 coloca los archivos compilados en `/browser/`
+   - Solución: Ajustar la ruta de copia en el Dockerfile
+
+2. **Puertos en Railway**:
+   - Railway espera que la aplicación escuche en un puerto específico
+   - Solución: Exponer y usar el puerto 3000 con la herramienta `serve`
+
+3. **Healthchecks**:
+   - Los healthchecks de Railway pueden fallar con configuraciones complejas
+   - Solución: Deshabilitar healthchecks en `railway.toml`
+
+4. **Sirviendo una SPA**:
+   - Las aplicaciones Angular requieren un servidor que maneje correctamente las rutas
+   - Solución: Usar `serve` que está optimizado para aplicaciones SPA
+
+### Proceso de Despliegue
+
+Para desplegar la aplicación desde cero:
+
+1. **Preparar los archivos de configuración**:
+   - Crear `Dockerfile`, `railway.toml` y verificar `environment.prod.ts`
+
+2. **Instalar Railway CLI**:
+   ```bash
    npm install -g @railway/cli
    ```
 
-2. **Iniciar sesión en Railway**:
-   ```
+3. **Iniciar sesión en Railway**:
+   ```bash
    railway login
    ```
 
-3. **Inicializar el proyecto en Railway**:
-   ```
+4. **Inicializar y desplegar**:
+   ```bash
    railway init
-   ```
-
-4. **Desplegar la aplicación**:
-   ```
    railway up
    ```
 
-5. **Abrir la aplicación en el navegador**:
-   ```
+5. **Verificar el despliegue**:
+   ```bash
    railway open
    ```
 
-### Variables de Entorno
+### Conexión con la API
 
-Railway utiliza las variables de entorno definidas en los archivos de entorno de Angular durante el proceso de construcción. La configuración de producción utiliza automáticamente `environment.prod.ts` que apunta a la API en:
+La aplicación desplegada se conecta automáticamente a la API en:
 ```
 https://apiproyectoiv-production.up.railway.app/api
 ```
 
-### Notas Importantes
+Esta URL está configurada en el archivo `environment.prod.ts` y se utiliza automáticamente en el entorno de producción.
 
-- La aplicación utiliza Nginx para servir el contenido estático y redirigir todas las rutas a index.html para compatibilidad con Angular Router
-- El despliegue está configurado para reiniciarse automáticamente en caso de fallos
-- Se ha configurado compresión gzip y políticas de caché para optimizar el rendimiento
+### Mantenimiento del Despliegue
+
+Para actualizar la aplicación desplegada:
+
+1. Realizar cambios en el código
+2. Hacer commit de los cambios
+3. Ejecutar `railway up` para redesplegue
+4. Verificar el despliegue con `railway logs`
+
+Para más detalles sobre Railway, consultar su [documentación oficial](https://docs.railway.app/).
