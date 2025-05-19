@@ -70,7 +70,7 @@ export class AuthService {
   login(email: string, password: string): Observable<LoginResponse> {
     console.log('Intentando login con email:', email);
     const loginRequest: LoginRequest = { email, password };
-    return this.http.post<LoginResponse>(`${environment.apiUrl}/login`, loginRequest)
+    return this.http.post<LoginResponse>(`${environment.apiUrl}/auth/login`, loginRequest)
       .pipe(
         tap(response => {
           console.log('Respuesta completa de login:', response);
